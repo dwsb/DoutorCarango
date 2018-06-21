@@ -1,5 +1,21 @@
 extends layout
 
+//- block content
+//-   form(method="POST" action="file/upload" encType="multipart/form-data")
+//-     div.form-group
+//-             input#pw2.form-control(type='file' name='file')
+//-               button.btn.btn-primary(type='submit' value="upload") Click
+
 block content
-  h1= title
-  p Welcome to #{title}
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 Sign Up
+
+        // register form
+        form(method="POST" action="estabelecimentos/upload" encType="multipart/form-data")
+         
+          div.form-group
+            label(for='pw2') select image:
+            input#pw2.form-control(type='file' name='file')
+          button.btn.btn-primary(type='submit' value='upload') Sign up
