@@ -2,12 +2,40 @@ var express = require('express');
 var router = express.Router();
 var config = require ('../config');
 var mysql = require('mysql');
+var multer = require('multer');
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    
+    
+    cb(null, 'uploads/');
+  },
+  filename: function (req, file, cb) {
+    
+    cb(null, file.originalname)
+  }
+});
+var upload = multer({storage})
 
 connection = mysql.createConnection(config.database);
 connection.connect(function(err){
     if(err) throw err;
     console.log("Conexao estabelecida com o banco app, estabelecimentos!\n");
 });
+
+router.post('/upload/:id_estabelcimento', upload.single('file'), function(req, res, next){
+  var id_estabelcimento = req.params.id_estabelcimento;
+  var file_name = file.originalname;
+  var sql = "insert into TB_Fotos_Estabelecimentos (id_estabelecimentos, foto) Values ?"
+  var values = [[id_estabelcimento, file_name]];
+  connection.query(sql, [values], function (err, result) {
+    if (err){
+        console.log(err);
+       return res.send({men: err.code});
+    }
+    return res.send({men: "Upload realizado com sucesso"});
+});
+
+  }); 
 
 //listar todos usuario type=desc(decrente), type=asc(crescente)
 router.get('/:type',function(req, res, next){
