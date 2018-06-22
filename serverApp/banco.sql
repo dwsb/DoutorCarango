@@ -32,6 +32,7 @@ CREATE TABLE TB_Estabelecimentos (
   estado Varchar(60) Not Null,
   pais Varchar(60) Not Null,
   complemento Varchar(255),
+  foto_perfil Varchar(60),
   rankingAgilidade double,
   rankingCustoBeneficio double,
   rankingServico double
@@ -90,6 +91,14 @@ CREATE TABLE TB_Servicos (
   valor double not null,
   Foreign Key (id_estabelecimentos) References TB_Estabelecimentos(id) on update cascade on delete cascade,
   Foreign Key (id_usuarios) References TB_Usuarios(id) on update cascade on delete cascade
+);
+
+create table TB_Promocao(
+  id int Unsigned Auto_Increment Primary Key,
+  id_estabelecimentos int Unsigned not null,
+  descricao_promocao varchar(510),
+  data_hora Datetime,
+  Foreign Key (id_estabelecimentos) References TB_Estabelecimentos(id) on update cascade on delete cascade
 );
 
 CREATE TABLE TB_Av_Agilidade(
