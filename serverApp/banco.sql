@@ -1,4 +1,4 @@
-CREATE TABLE TB_Usuarios (
+  CREATE TABLE TB_Usuarios (
   id int Unsigned Auto_Increment Primary Key,
   nome Varchar(255) Not Null,
   cpf Varchar(60) Not Null Unique,
