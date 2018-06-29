@@ -1,9 +1,7 @@
   CREATE TABLE TB_Usuarios (
   id int Unsigned Auto_Increment Primary Key,
   nome Varchar(255) Not Null,
-  cpf Varchar(60) Not Null Unique,
   email Varchar(60) Not Null Unique,
-  login Varchar(60) Not Null Unique,
   senha Varchar(60) Not Null,
   localizacao_atual Varchar(255),
   rua Varchar(60),
@@ -22,7 +20,6 @@ CREATE TABLE TB_Estabelecimentos (
   nome Varchar(255) Not Null,
   cnpj Varchar(60) Not Null Unique,
   email Varchar(60) Not Null Unique,
-  login Varchar(60) Not Null Unique,
   senha Varchar(60) Not Null,
   rua Varchar(60) Not Null,
   numero Varchar(60) Not Null,
