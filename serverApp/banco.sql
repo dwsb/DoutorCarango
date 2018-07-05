@@ -22,6 +22,7 @@ CREATE TABLE TB_Estabelecimentos (
   nome Varchar(255) Not Null,
   cnpj Varchar(60) Not Null Unique,
   email Varchar(60) Not Null Unique,
+  credencia Bool Not Null,
   senha Varchar(60) Not Null,
   rua Varchar(60) Not Null,
   numero Varchar(60) Not Null,
