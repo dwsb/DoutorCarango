@@ -12,7 +12,9 @@
   estado Varchar(60),
   pais Varchar(60),
   complemento Varchar(255),
-  foto_perfil Varchar(60)
+  foto_perfil Varchar(60),
+  telefone1 Varchar(60) not null,
+  telefone2 Varchar(60)
  );
 
 CREATE TABLE TB_Estabelecimentos (
@@ -30,35 +32,19 @@ CREATE TABLE TB_Estabelecimentos (
   pais Varchar(60) Not Null,
   complemento Varchar(255),
   foto_perfil Varchar(60),
+  foto1 Varchar(60),
+  foto2 Varchar(60),
+  foto3 Varchar(60),
   rankingAgilidade double,
   rankingCustoBeneficio double,
-  rankingServico double
+  rankingServico double,
+  telefone1 Varchar(60) not null,
+  telefone2 Varchar(60)
 );
 
 CREATE TABLE TB_Categorias (
   id int Unsigned Auto_Increment Primary Key,
   categoria Varchar (60) not null
-);
-
-CREATE TABLE TB_Fotos_Estabelecimentos (
-  id int Unsigned Auto_Increment Primary Key,
-  id_estabelecimentos int Unsigned not null,
-  foto Varchar(60) not null,
-  Foreign Key (id_estabelecimentos) References TB_Estabelecimentos(id) on update cascade on delete cascade
-);
-
-CREATE TABLE TB_Telefones_Usuarios (
-  id int Unsigned Auto_Increment Primary Key,
-  id_usuarios int Unsigned not null,
-  telefone Varchar(60) not null,
-  Foreign Key (id_usuarios) References TB_Usuarios(id) on update cascade on delete cascade
-);
-
-CREATE TABLE TB_Telefones_Estabelecimentos (
-  id int Unsigned Auto_Increment Primary Key,
-  id_estabelecimentos int Unsigned not null,
-  telefone Varchar(60) not null,
-  Foreign Key (id_estabelecimentos) References TB_Estabelecimentos(id) on update cascade on delete cascade
 );
 
 CREATE TABLE TB_Estabelecimentos_Categorias (
@@ -74,23 +60,12 @@ CREATE TABLE TB_Comentarios (
   id_estabelecimentos int Unsigned not null,
   id_usuarios int Unsigned not null,
   comentario Varchar(510),
-  data_hora Datetime,
+  data_hora Varchar(60),
   Foreign Key (id_estabelecimentos) References TB_Estabelecimentos(id) on update cascade on delete cascade,
   Foreign Key (id_usuarios) References TB_Usuarios(id) on update cascade on delete cascade
 );
 
-
-CREATE TABLE TB_Servicos (
-  id int Unsigned Auto_Increment Primary Key,
-  id_estabelecimentos int Unsigned not null,
-  id_usuarios int Unsigned not null,
-  descricao Varchar(510),
-  valor double not null,
-  Foreign Key (id_estabelecimentos) References TB_Estabelecimentos(id) on update cascade on delete cascade,
-  Foreign Key (id_usuarios) References TB_Usuarios(id) on update cascade on delete cascade
-);
-
-create table TB_Promocao(
+create table TB_Promocoes(
   id int Unsigned Auto_Increment Primary Key,
   id_estabelecimentos int Unsigned not null,
   descricao_promocao varchar(510),
@@ -147,7 +122,6 @@ begin
   return (select avg(S.nota) from tb_av_servico as S where S.id_estabelecimentos = identificador);
 end;
 $$
-
 
 /*Ranking de agilidade*/
 delimiter $$
@@ -216,4 +190,3 @@ begin
     update tb_estabelecimentos as E
     set E.rankingServico = (select media_servico(E.id));  
 end$$/* testado ok*/
-

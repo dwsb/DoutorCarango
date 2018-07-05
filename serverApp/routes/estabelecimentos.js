@@ -22,20 +22,18 @@ connection.connect(function(err){
     console.log("Conexao estabelecida com o banco app, estabelecimentos!\n");
 });
 
-router.post('/upload/:id_estabelcimento', upload.single('file'), function(req, res, next){
-  var id_estabelcimento = req.params.id_estabelcimento;
+router.post('/upload/foto', upload.single('file'), function(req, res, next){
   var file_name = file.originalname;
-  var sql = "insert into TB_Fotos_Estabelecimentos (id_estabelecimentos, foto) Values ?"
-  var values = [[id_estabelcimento, file_name]];
-  connection.query(sql, [values], function (err, result) {
+  var sql = "update TB_Estabelecimentos set foto_perfil = '"+file_name+"' where id = "+ req.body.id;
+  connection.query(sql, function (err, result) {
     if (err){
         console.log(err);
        return res.send({men: err.code});
     }
     return res.send({men: "Upload realizado com sucesso"});
-});
+  });
 
-  }); 
+}); 
 
 //listar todos usuario type=desc(decrente), type=asc(crescente)
 router.get('/:type',function(req, res, next){
