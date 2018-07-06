@@ -1,4 +1,4 @@
-  CREATE TABLE TB_Usuarios (
+CREATE TABLE TB_Usuarios (
   id int Unsigned Auto_Increment Primary Key,
   nome Varchar(255) Not Null,
   email Varchar(60) Not Null Unique,
@@ -70,7 +70,7 @@ create table TB_Promocoes(
   id int Unsigned Auto_Increment Primary Key,
   id_estabelecimentos int Unsigned not null,
   descricao_promocao varchar(510),
-  data_hora Datetime,
+  validade Varchar(60),
   Foreign Key (id_estabelecimentos) References TB_Estabelecimentos(id) on update cascade on delete cascade
 );
 
@@ -122,7 +122,7 @@ create function media_servico (identificador INT) returns INT
 begin
   return (select avg(S.nota) from tb_av_servico as S where S.id_estabelecimentos = identificador);
 end;
-$$
+$$id_usuariosid_estabelecimentos
 
 /*Ranking de agilidade*/
 delimiter $$

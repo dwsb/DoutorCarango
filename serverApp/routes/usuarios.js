@@ -115,8 +115,68 @@ router.delete('/deletar', function(req,res,next){
     });
 });
 
+
+router.post('/comentarios/cadastrar', function(req, res, next){
+    var id_estabelecimentos = req.body.id_estabelecimentos;
+    var id_usuarios = req.body.id_usuarios;
+    var comentario = req.body.comentario;
+    var data_hora = req.body.data_hora;
+    values = [[id_estabelecimentos,id_usuarios, comentario, data_hora]];
+    sql = "insert into TB_Comentarios (id_estabelecimentos,id_usuarios,comentario,data_hora) values ?";
+    console.log(sql);
+    connection.query(sql, [values], function (err, result) {
+        if (err){
+            console.log(err);
+           return res.send({men: err.code});
+        }
+        return res.send({men: "cadastrado"});
+    });
+});
+
+router.get('/comentarios/id_usuarios=:id_usuarios',function(req,res,next){
+    var id_usuarios = req.params.id_usuarios;
+    sql = "select * from TB_Comentarios where id_usuarios = "+id_usuarios;
+    console.log(sql);
+    connection.query(sql,function(err, result){
+        if(err){
+            console.log(err);
+            return res.send({men: err.code});
+        }
+        return res.send(result);
+    });
+});
+
+router.put('/comentarios/atualizar',function(req,res,next){
+    var id = req.body.id;
+    var comentario = req.body.comentario;
+    sql = "update TB_Comentarios set comentario = '"+comentario+"' where id = "+id;
+    console.log(sql);
+    connection.query(sql, function(err, result){
+        if(err){
+            console.log(err);
+            return res.send({men: err.code});
+        }
+        return res.send({men: "Atualizado"});
+    });
+});
+
+router.delete('/comentarios/deletar',function(req,res,next){
+    var id = req.body.id;
+    sql = "delete from TB_Comentarios where id = "+id;
+    console.log(sql);
+    connection.query(sql, function(err, result){
+        if(err){
+            console.log(err);
+            return res.send({men: err.code});
+        }
+        return res.send({men: "deletado"});
+    });
+});
+
 router.get('/cool', function(req, res, next) {
   res.send('u r so cool!');
 });
+
+
 
 module.exports = router;
