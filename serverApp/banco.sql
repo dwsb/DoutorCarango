@@ -122,7 +122,7 @@ create function media_servico (identificador INT) returns INT
 begin
   return (select avg(S.nota) from tb_av_servico as S where S.id_estabelecimentos = identificador);
 end;
-$$id_usuariosid_estabelecimentos
+$$
 
 /*Ranking de agilidade*/
 delimiter $$
@@ -149,21 +149,21 @@ end$$ /* testado ok*/
 
 /*Ranking de Custoxbeneficio*/
 delimiter $$
-CREATE  TRIGGER  Media_Av_custobeneficio_Ins AFTER insert ON tb_av_custobeneficio FOR each ROW
+CREATE  TRIGGER  Media_Av_custobeneficio_Ins AFTER insert ON TB_Av_CustoBeneficio FOR each ROW
 begin
   update tb_estabelecimentos as E
     set E.rankingCustoBeneficio = (select media_custo(E.id));   
 end$$ /* testado ok*/
 
 delimiter $$
-CREATE  TRIGGER  Media_Av_custobeneficio_Up AFTER update ON tb_av_custobeneficio FOR each ROW
+CREATE  TRIGGER  Media_Av_custobeneficio_Up AFTER update ON TB_Av_CustoBeneficio FOR each ROW
 begin
   update tb_estabelecimentos as E
     set E.rankingCustoBeneficio = (select media_custo(E.id));
 end$$ /* testado ok*/
 
 delimiter $$
-CREATE  TRIGGER  Media_Av_custobeneficio_Del AFTER Delete ON tb_av_custobeneficio FOR each ROW
+CREATE  TRIGGER  Media_Av_custobeneficio_Del AFTER Delete ON TB_Av_CustoBeneficio FOR each ROW
 begin 
     update tb_estabelecimentos as E
     set E.rankingCustoBeneficio = (select media_custo(E.id));    
@@ -172,21 +172,21 @@ end$$ /* testado ok*/
 
 /*Ranking de servico*/
 delimiter $$
-CREATE  TRIGGER  Media_Av_servico_Ins AFTER insert ON tb_av_servico FOR each ROW
+CREATE  TRIGGER  Media_Av_servico_Ins AFTER insert ON TB_Av_Servico FOR each ROW
 begin
   update tb_estabelecimentos as E
     set E.rankingServico = (select media_servico(E.id));   
 end$$ /* testado ok*/
 
 delimiter $$
-CREATE  TRIGGER  Media_Av_servico_Up AFTER update ON tb_av_servico FOR each ROW
+CREATE  TRIGGER  Media_Av_servico_Up AFTER update ON TB_Av_Servico FOR each ROW
 begin
   update tb_estabelecimentos as E
     set E.rankingServico = (select media_servico(E.id));
 end$$/* testado ok*/
 
 delimiter $$
-CREATE  TRIGGER  Media_Av_servico_Del AFTER Delete ON tb_av_servico FOR each ROW
+CREATE  TRIGGER  Media_Av_servico_Del AFTER Delete ON TB_Av_Servico FOR each ROW
 begin
     update tb_estabelecimentos as E
     set E.rankingServico = (select media_servico(E.id));  
