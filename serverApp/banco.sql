@@ -106,21 +106,21 @@ CREATE TABLE TB_Av_Servico(
 delimiter $$
 create function media_agilidade (identificador INT) returns INT
 begin
-  return (select avg(A.nota) from tb_av_agilidade as A where A.id_estabelecimentos = identificador);
+  return (select avg(A.nota) from TB_Av_Agilidade as A where A.id_estabelecimentos = identificador);
 end;
 $$
 
 delimiter $$
 create function media_custo (identificador INT) returns INT
 begin
-  return (select avg(C.nota) from tb_av_custobeneficio as C where C.id_estabelecimentos = identificador);
+  return (select avg(C.nota) from TB_Av_CustoBeneficio as C where C.id_estabelecimentos = identificador);
 end;
 $$
 
 delimiter $$
 create function media_servico (identificador INT) returns INT
 begin
-  return (select avg(S.nota) from tb_av_servico as S where S.id_estabelecimentos = identificador);
+  return (select avg(S.nota) from TB_Av_Servico as S where S.id_estabelecimentos = identificador);
 end;
 $$
 
@@ -128,21 +128,21 @@ $$
 delimiter $$
 CREATE  TRIGGER  Media_Av_Agilidade_Ins AFTER insert ON TB_Av_Agilidade FOR each ROW
 begin
-  update tb_estabelecimentos as E
+  update TB_Estabelecimentos as E
     set E.rankingAgilidade = (select media_agilidade(E.id));
 end$$ /* testado ok*/
 
 delimiter $$
 CREATE  TRIGGER  Media_Av_Agilidade_Up AFTER update ON TB_Av_Agilidade FOR each ROW
 begin
-  update tb_estabelecimentos as E
+  update TB_Estabelecimentos as E
     set E.rankingAgilidade = (select media_agilidade(E.id));
 end$$ /* testado ok*/
 
 delimiter $$
 CREATE  TRIGGER  Media_Av_Agilidade_Del AFTER Delete ON TB_Av_Agilidade FOR each ROW
 begin
-    update tb_estabelecimentos as E
+    update TB_Estabelecimentos as E
     set E.rankingAgilidade = (select media_agilidade(E.id)); 
 end$$ /* testado ok*/
 
@@ -151,21 +151,21 @@ end$$ /* testado ok*/
 delimiter $$
 CREATE  TRIGGER  Media_Av_custobeneficio_Ins AFTER insert ON TB_Av_CustoBeneficio FOR each ROW
 begin
-  update tb_estabelecimentos as E
+  update TB_Estabelecimentos as E
     set E.rankingCustoBeneficio = (select media_custo(E.id));   
 end$$ /* testado ok*/
 
 delimiter $$
 CREATE  TRIGGER  Media_Av_custobeneficio_Up AFTER update ON TB_Av_CustoBeneficio FOR each ROW
 begin
-  update tb_estabelecimentos as E
+  update TB_Estabelecimentos as E
     set E.rankingCustoBeneficio = (select media_custo(E.id));
 end$$ /* testado ok*/
 
 delimiter $$
 CREATE  TRIGGER  Media_Av_custobeneficio_Del AFTER Delete ON TB_Av_CustoBeneficio FOR each ROW
 begin 
-    update tb_estabelecimentos as E
+    update TB_Estabelecimentos as E
     set E.rankingCustoBeneficio = (select media_custo(E.id));    
 end$$ /* testado ok*/
 
@@ -174,20 +174,20 @@ end$$ /* testado ok*/
 delimiter $$
 CREATE  TRIGGER  Media_Av_servico_Ins AFTER insert ON TB_Av_Servico FOR each ROW
 begin
-  update tb_estabelecimentos as E
+  update TB_Estabelecimentos as E
     set E.rankingServico = (select media_servico(E.id));   
 end$$ /* testado ok*/
 
 delimiter $$
 CREATE  TRIGGER  Media_Av_servico_Up AFTER update ON TB_Av_Servico FOR each ROW
 begin
-  update tb_estabelecimentos as E
+  update TB_Estabelecimentos as E
     set E.rankingServico = (select media_servico(E.id));
 end$$/* testado ok*/
 
 delimiter $$
 CREATE  TRIGGER  Media_Av_servico_Del AFTER Delete ON TB_Av_Servico FOR each ROW
 begin
-    update tb_estabelecimentos as E
+    update TB_Estabelecimentos as E
     set E.rankingServico = (select media_servico(E.id));  
 end$$/* testado ok*/
