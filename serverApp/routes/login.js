@@ -26,9 +26,13 @@ module.exports = function (app) {
 		var login = req.body.email;
 		var pass  = req.body.password;
 		var sess = req.session; 
-		
-		var sql ="SELECT id, `nome`,`cpf`,`email`,`login`, `senha` FROM `tb_usuarios` WHERE `login`='"+email+"' and senha = '"+pass+"'";                           
-      	var sql2="SELECT id, `nome`,`cnpj`,`email`,`login`, `senha` FROM `tb_estabelecimentos` WHERE `login`='"+email+"' and senha = '"+pass+"'";                           
+	
+		var sql = "select id, nome, email, senha, localizacao_atual, rua, numero, bairro, cidade, cep, estado, pais, complemento, foto_perfil"+
+		" from TB_Usuarios where email = '"+login+"' && senha = '"+pass+"'";
+		var sql2 = "select id, nome, cnpj, email, credencia, rua, numero, bairro, cidade, cep, estado, pais, complemento, foto_perfil,"+
+		" rankingAgilidade, rankingCustoBeneficio, rankingServico, telefone1, telefone2 from TB_Estabelecimentos where email = '"+login+"' && senha = '"+pass+"'";
+	//	var sql ="SELECT id, `nome`,`cpf`,`email`,`login`, `senha` FROM `tb_usuarios` WHERE `login`='"+email+"' and senha = '"+pass+"'";                           
+    //  var sql2="SELECT id, `nome`,`cnpj`,`email`,`login`, `senha` FROM `tb_estabelecimentos` WHERE `login`='"+email+"' and senha = '"+pass+"'";                           
       	
 
 		db.query(sql, function(err, results){      

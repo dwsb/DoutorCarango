@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var config = require ('../config');
 var mysql = require('mysql');
+var multer = require('multer');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     

@@ -22,7 +22,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.use(express.static());
+//app.use(express.static());
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
