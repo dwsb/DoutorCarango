@@ -1,9 +1,9 @@
 var config = {
     database: {
-        host: '127.0.0.1',     
-        user: 'root',         
-        password: 'testemaria',              
-        database: 'doutorcarango'         
+        host: 'mysql.doutorcarango.kinghost.net',     
+        user: 'doutorcarango01',         
+        password: 'DoutorCarango2018',              
+        database: 'doutorcarango01'         
     },
     server: {
         host: '127.0.0.1',
