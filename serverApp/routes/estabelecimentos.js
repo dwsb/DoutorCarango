@@ -22,9 +22,9 @@ connection.connect(function(err){
     console.log("Conexao estabelecida com o banco app, estabelecimentos!\n");
 });
 
-router.get('/foto/:id_estabelcimento', function(req,res,next){
-var id_estabelcimento = req.params.id_estabelcimento;
-var sql = "select TOP 1 * from TB_Fotos_Estabelecimentos where id = " + id_estabelcimento + "order by id desc";
+router.get('/foto/:id_estabelecimentos', function(req,res,next){
+var id_estabelecimentos = req.params.id_estabelecimentos;
+var sql = "select foto_perfil from TB_Estabelecimentos where id = "+id_estabelecimentos;
 connection.query(sql, function(err, result, fields){
     if(err){
         console.log(err);
@@ -34,14 +34,13 @@ connection.query(sql, function(err, result, fields){
  });
 });
 
-router.post('/upload/:id_estabelcimento', upload.any(), function(req, res, next){
+router.post('/upload/:id_estabelecimentos', upload.any(), function(req, res, next){
     
     req.files.forEach(element => {
-        var id_estabelcimento = req.params.id_estabelcimento;
+        var id_estabelecimentos = req.params.id_estabelecimentos;
         var file_name = element.filename
-        var sql = "insert into TB_Fotos_Estabelecimentos (id_estabelecimentos, foto) Values ?"
-        var values = [[id_estabelcimento, file_name]];
-        connection.query(sql, [values], function (err, result) {
+        var sql = "update TB_Estabelecimentos set foto_perfil = '"+file_name+"' where id = "+id_estabelecimentos;
+        connection.query(sql, function (err, result) {
           if (err){
               console.log(err);
              return res.send({men: err.code});

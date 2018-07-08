@@ -191,7 +191,7 @@ router.get('/cool', function(req, res, next) {
 
 router.get('/foto/:id_usuarios', function(req,res,next){
     var id_usuarios = req.params.id_usuarios;
-    var sql = "select TOP 1 * from TB_Usuarios where id = " + id_usuarios;
+    var sql = "select foto_perfil from TB_Usuarios where id = " + id_usuarios;
     connection.query(sql, function(err, result, fields){
         if(err){
             console.log(err);
@@ -207,8 +207,8 @@ router.get('/foto/:id_usuarios', function(req,res,next){
         req.files.forEach(element => {
             var id_usuarios = req.params.id_usuarios;
             var file_name = element.filename;
-            var sql = "Update TB_Usuarios set foto_perfil =" + file_name + " Where id = " + id_usuarios;
-            connection.query(sql, [values], function (err, result) {
+            var sql = "update TB_Usuarios set foto_perfil ='" + file_name + "' Where id = " + id_usuarios;
+            connection.query(sql, function (err, result) {
               if (err){
                   console.log(err);
                  return res.send({men: err.code});
