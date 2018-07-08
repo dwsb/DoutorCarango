@@ -72,24 +72,27 @@ router.get('/filter/categoria=:categoria&ranking=:ranking', function (req, res, 
     var categoria = req.params.categoria;
     var sql;
     if (ranking == 1) {
-        sql = "select e.id, e.nome,e.credencia,e.foto_perfil, e.rankingAgilidade, (select count(*) from TB_Av_Agilidade where id_estabelecimentos = e.id) as numeroAvaliacoes,"+ 
-        " (select count(*) from TB_Comentarios where id_estabelecimentos = e.id) as numeroComentarios"+ 
-        " from TB_Estabelecimentos as e , TB_Categorias as cat, TB_Estabelecimentos_Categorias as ec where cat.categoria like '"+categoria+"' &&  cat.id like ec.id_categorias &&"+ 
-        "e.id = ec.id_estabelecimentos "+
+        sql = "select e.id, e.nome,e.credencia,e.foto_perfil, e.rankingAgilidade, e.rua , e.numero, e.bairro, e.cidade, e.cep, e.estado, e.pais, e.complemento,"+
+        " (select count(*) from TB_Av_Agilidade where id_estabelecimentos = e.id) as numeroAvaliacoes,"+ 
+        " (select count(*) from TB_Comentarios where id_estabelecimentos = e.id) as numeroComentarios, (select count(*) from TB_Promocoes where id_estabelecimentos = e.id) as numeroPromocoes"+ 
+        " from TB_Estabelecimentos as e , TB_Categorias as cat, TB_Estabelecimentos_Categorias as ec where cat.categoria like '"+categoria+"%' &&  cat.id like ec.id_categorias &&"+ 
+        " e.id = ec.id_estabelecimentos "+
         " order by e.rankingAgilidade desc";
     }
     if (ranking == 2) {
-        sql = "select e.id, e.nome,e.credencia,e.foto_perfil, e.rankingCustoBeneficio, (select count(*) from TB_Av_CustoBeneficio where id_estabelecimentos = e.id) as numeroAvaliacoes,"+ 
-        " (select count(*) from TB_Comentarios where id_estabelecimentos = e.id) as numeroComentarios"+ 
-        " from TB_Estabelecimentos as e , TB_Categorias as cat, TB_Estabelecimentos_Categorias as ec where cat.categoria like '"+categoria+"' &&  cat.id like ec.id_categorias &&"+ 
-        "e.id = ec.id_estabelecimentos "+
+        sql = "select e.id, e.nome,e.credencia,e.foto_perfil, e.rankingCustoBeneficio, e.rua , e.numero, e.bairro, e.cidade, e.cep, e.estado, e.pais, e.complemento,"+
+        " (select count(*) from TB_Av_CustoBeneficio where id_estabelecimentos = e.id) as numeroAvaliacoes,"+ 
+        " (select count(*) from TB_Comentarios where id_estabelecimentos = e.id) as numeroComentarios, (select count(*) from TB_Promocoes where id_estabelecimentos = e.id) as numeroPromocoes"+ 
+        " from TB_Estabelecimentos as e , TB_Categorias as cat, TB_Estabelecimentos_Categorias as ec where cat.categoria like '"+categoria+"%' &&  cat.id like ec.id_categorias &&"+ 
+        " e.id = ec.id_estabelecimentos "+
         " order by e.rankingCustoBeneficio desc";
     }
     if (ranking == 3) {
-        sql = "select e.id, e.nome,e.credencia,e.foto_perfil, e.rankingServico, (select count(*) from TB_Av_Servico where id_estabelecimentos = e.id) as numeroAvaliacoes,"+ 
-        " (select count(*) from TB_Comentarios where id_estabelecimentos = e.id) as numeroComentarios"+ 
-        " from TB_Estabelecimentos as e , TB_Categorias as cat, TB_Estabelecimentos_Categorias as ec where cat.categoria like '"+categoria+"' &&  cat.id like ec.id_categorias &&"+ 
-        "e.id = ec.id_estabelecimentos "+
+        sql = "select e.id, e.nome,e.credencia,e.foto_perfil, e.rankingServico, e.rua , e.numero, e.bairro, e.cidade, e.cep, e.estado, e.pais, e.complemento,"+
+        " (select count(*) from TB_Av_Servico where id_estabelecimentos = e.id) as numeroAvaliacoes,"+ 
+        " (select count(*) from TB_Comentarios where id_estabelecimentos = e.id) as numeroComentarios, (select count(*) from TB_Promocoes where id_estabelecimentos = e.id) as numeroPromocoes"+ 
+        " from TB_Estabelecimentos as e , TB_Categorias as cat, TB_Estabelecimentos_Categorias as ec where cat.categoria like '"+categoria+"%' &&  cat.id like ec.id_categorias &&"+ 
+        " e.id = ec.id_estabelecimentos "+
         " order by e.rankingServico desc";
     }
     console.log(sql);
