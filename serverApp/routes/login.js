@@ -3,7 +3,6 @@ var uuid = require('node-uuid');
 var router = express.Router();
 var config = require ('../config');
 var mysql = require('mysql');
-var bcrypt = require('bcrypt');
 
 connection = mysql.createConnection(config.database);
 connection.connect(function(err){
@@ -76,10 +75,37 @@ module.exports = function (app) {
 		var comp  = post.complemento;
 		var fot_p = post.foto_perfil;
 
-		var sql = "INSERT INTO tb_usuarios (nome, cpf, email, login, senha, localizacao_atual, rua, numero, bairro, cidade, cep, estado, pais, complemento, foto_perfil) Values ?"
+		var sql = "INSERT INTO tb_usuarios (nome, cpf, email, login, senha, loc_a, rua, numero, bairro, cidade, cep, estado, pais, complemento, foto_p) Values ?"
 		var query = db.query(sql, function(err, result) {
 
          message = "Conta criada com sucesso!";
+         res.render('signup.ejs',{message: message}); //tela de redirecionamento mudar campos
+		});
+	});
+
+	app.post('/signupEstab', function (req, res, next) {
+		var post  = req.body;
+		var nome  = post.nome;
+		var cnpj  = post.cnpj;
+		var email = post.email;
+		var login = post.login;
+		var senha = post.senha;
+		var rua   = post.rua;
+		var num   = post.numero;
+		var bairro= post.bairro;
+		var cidade= post.cidade;
+		var cep   = post.cep;
+		var estado= post.estado;
+		var pais  = post.pais;
+		var comp  = post.complemento;
+		var rkAgil= 0;
+		var rkCust= 0;
+		var rkServ= 0;
+
+		var sql = "INSERT INTO tb_estabelecimentos (nome, cnpj, email, login, senha, rua, numero, bairro, cidade, cep, estado, pais, comp, rkAgil, rkCust, rkServ) Values ?"
+		var query = db.query(sql, function(err, result) {
+
+         message = "Oficina criada com sucesso!";
          res.render('signup.ejs',{message: message}); //tela de redirecionamento mudar campos
 		});
 	});
@@ -115,18 +141,18 @@ module.exports = function (app) {
 	    if (password == confirm_pwd) {
 	        removeFromListAndMapOnSuccess(email)
 	        console.log(JSON.stringify(mapList));
-	        bcrypt.genSalt(saltRounds, function (err, salt) {
-	            bcrypt.hash(password, salt, function (err, hash) {
+	        //bcrypt.genSalt(saltRounds, function (err, salt) {
+	            //bcrypt.hash(password, salt, function (err, hash) {
 	                var dbEntry = {};
 	                dbEntry.email = email;
-	                dbEntry.passwordHash = hash;
+	                //dbEntry.passwordHash = hash;
 	                database.collection("signIn").insertOne(dbEntry, function (err, res) {
 	                    if (err) throw err;
 	                    console.log("erro");
 	                    //db.close();
 	                });
-	            });
-	        });
+	            //});
+	        //});
 	        res.send("ok");
 	    }
 	    else {
