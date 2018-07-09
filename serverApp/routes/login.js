@@ -40,7 +40,7 @@ module.exports = function (app) {
               console.log(err);
              return res.send({men: err.code});
           }
-          return res.send({men: "sucesso"});               
+          return res.send(results);               
       });
 
 		db.query(sql2, function(err, results){      
@@ -48,7 +48,7 @@ module.exports = function (app) {
               console.log(err);
              return res.send({men: err.code});
           }
-          return res.send({men: "sucesso"});               
+          return res.send(results);               
       });
 		
 		//OUTRA FORMA
