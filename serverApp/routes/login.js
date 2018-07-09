@@ -50,6 +50,32 @@ module.exports = function (app) {
           }
           return res.send({men: "sucesso"});               
       });
+		
+		//OUTRA FORMA
+		
+		/*
+		var result = [];
+		var  getUserInfoFromDB = function(callback) {
+		
+			db.query(sql, function(err, res, fields)
+			{
+			    if (err)  
+			    	return callback(err);
+			    
+			    callback(null, result);
+			});
+		};
+		
+		
+		getUserInfoFromDB(function (err, result) {
+  			if (err) 
+  				console.log("Database error!");
+  			else 
+  				console.log(result);
+		};
+		
+		*/
+		
 	});
 	
 	app.get('/signup', function (req, res, next) {
