@@ -333,7 +333,8 @@ router.put('/promocoes/atualizar', function(req, res, next){
 
 router.get('/comentarios/id_estabelecimentos=:id_estabelecimentos',function(req, res, next){
     var id_estabelecimentos = req.params.id_estabelecimentos;
-    sql = "select * from TB_Comentarios where id_estabelecimentos = "+id_estabelecimentos;
+    sql = "select * , (select nome from TB_Usuarios where id = a.id_usuarios) as nomeUsuario "+
+    "from TB_Comentarios as a where id_estabelecimentos = "+id_estabelecimentos;
     connection.query(sql,function(err, result){
         if(err){
             console.log(err);
