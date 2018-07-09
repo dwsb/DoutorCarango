@@ -203,6 +203,20 @@ router.put('/atualizar/endereco', function(req,res,next){
     });
 });
 
+router.post('/login', function(req,res,next){
+    var email = req.body.email;
+    var senha = req.body.senha;
+    var sql = "select id ,nome, email, cnpj, rua, numero, bairro, cidade, cep, estado, pais, complemento, foto_perfil, telefone1, telefone2 "+ 
+    "from TB_Estabelecimentos where email like '"+email+"' && "+" senha like '"+senha+"'";
+    console.log(sql);
+    connection.query(sql, function(err, result, fields){
+        if(err){
+            console.log(err);
+            return res.send({men: err.code});
+        }
+      return res.send(result);
+    });
+});
 
 //deleta passando como parametro id do estabelecimento
 router.delete('/deletar', function(req,res,next){
