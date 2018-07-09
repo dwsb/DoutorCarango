@@ -36,23 +36,19 @@ module.exports = function (app) {
       	
 
 		db.query(sql, function(err, results){      
-         if(results.length){
-            res.redirect('/users');
-         }
-         else{
-            message = 'Wrong Credentials.';
-            res.render('index.ejs',{message: message});
-         }                
+          if (err){
+              console.log(err);
+             return res.send({men: err.code});
+          }
+          return res.send({men: "sucesso"});               
       });
 
 		db.query(sql2, function(err, results){      
-         if(results.length){
-            //res.redirect('/estabelecimentos'); //redirecionamento pra page de oficina
-         }
-         else{
-            message = 'Wrong Credentials.';
-            res.render('index.ejs',{message: message});
-         }                
+          if (err){
+              console.log(err);
+             return res.send({men: err.code});
+          }
+          return res.send({men: "sucesso"});               
       });
 	});
 	
