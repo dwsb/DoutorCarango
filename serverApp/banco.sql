@@ -168,7 +168,7 @@ begin
     update TB_Estabelecimentos as E
     set E.rankingCustoBeneficio = (select media_custo(E.id));    
 end$$ /* testado ok*/
-
+select * from TB_Estabelecimentos;
 
 /*Ranking de servico*/
 delimiter $$
