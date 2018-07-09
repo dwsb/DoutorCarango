@@ -35,6 +35,22 @@ router.get('/:type',function(req, res, next){
       return res.send(result);
     });
 });
+
+router.post('/login', function(req,res,next){
+    var email = req.body.email;
+    var senha = req.body.senha;
+    var sql = "select id ,nome, email, localizacao_atual, rua, numero, bairro, cidade, cep, estado, pais, complemento, foto_perfil, telefone1, telefone2 "+ 
+    "from TB_Usuarios where email like '"+email+"' && "+" senha like '"+senha+"'";
+    console.log(sql);
+    connection.query(sql, function(err, result, fields){
+        if(err){
+            console.log(err);
+            return res.send({men: err.code});
+        }
+      return res.send(result);
+    });
+});
+
 //procurar por id, nome e ou cpf
 router.get('/procurar/id=:id&nome=:nome&email=:email',function(req,res,next){
     var id = req.params.id;
@@ -44,7 +60,7 @@ router.get('/procurar/id=:id&nome=:nome&email=:email',function(req,res,next){
     if(nome=="*") nome = "'%'"; else nome = "'"+nome+"%'";
     if(email=="*") email = "'%'"; else email = "'"+email+"%'";
     var sql = "select id ,nome, email, localizacao_atual, rua, numero, bairro, cidade, cep, estado, pais, complemento, foto_perfil, telefone1, telefone2 "+ 
-    "from TB_Usuarios where id like "+id+" && "+" nome like "+nome+" && "+" email like "+email;
+    "from TB_Usuarios where id like '"+id+"' && "+" nome like '"+nome+"' && "+" email like '"+email+"'";
     console.log(sql);
     connection.query(sql, function(err, result, fields){
         if(err){
